@@ -7,7 +7,7 @@ export const cars = [
       doors: 4,
       price: 22000,
       available: "yes",
-      image: "./img/first car toyota.jpg",
+      image: "toyota-corrolla.png",
     },
     {
       id: 2,
@@ -17,7 +17,7 @@ export const cars = [
       doors: 4,
       price: 25000,
       available: "yes",
-      image: "./img/honda civic second.webp",
+      image: "honda-civic-1.6-automatik-slika-231511286.png",
     },
     {
       id: 3,
@@ -27,7 +27,7 @@ export const cars = [
       doors: 2,
       price: 35000,
       available: "no",
-      image: "./img/mustant 3.png",
+      image: "Ford_Mustang_2025_101A_PYZ_882_89W_13A_CON_64F_99H_44U_EBST_DEFAULT_EXT_4.png",
     },
     {
       id: 4,
@@ -37,7 +37,7 @@ export const cars = [
       doors: 4,
       price: 45000,
       available: "yes",
-      image: "./img/BMW 3 Series 4.png",
+      image: "BMW-3-Series-Exterior-167583.png",
     },
     {
       id: 5,
@@ -47,7 +47,7 @@ export const cars = [
       doors: 2,
       price: 32000,
       available: "no",
-      image: "./img/Chavrolet 5.jpg",
+      image: "2024-chevrolet-camaro-ss-collectors-edition-1-647e1933c6c20.png",
     },
     {
       id: 6,
@@ -57,7 +57,7 @@ export const cars = [
       doors: 4,
       price: 42000,
       available: "yes",
-      image: "./img/audi a4 6.jpg",
+      image: "audi-a4.png",
     },
     {
       id: 7,
@@ -67,7 +67,7 @@ export const cars = [
       doors: 4,
       price: 50000,
       available: "yes",
-      image: "./img/mercedes e klasa 7.jpg",
+      image: "mercedesEclass.png",
     },
     {
       id: 8,
@@ -77,7 +77,7 @@ export const cars = [
       doors: 4,
       price: 38000,
       available: "no",
-      image: "./img/lexus 8.webp",
+      image: "lexus.png",
     },
     {
       id: 9,
@@ -87,7 +87,7 @@ export const cars = [
       doors: 4,
       price: 28000,
       available: "yes",
-      image: "./img/golf 9.jpg",
+      image: "golf 7r.png",
     },
     {
       id: 10,
@@ -97,6 +97,6 @@ export const cars = [
       doors: 4,
       price: 32000,
       available: "yes",
-      image: "./img/subaru 10.png",
+      image: "subaruOutback.png",
     },
   ];

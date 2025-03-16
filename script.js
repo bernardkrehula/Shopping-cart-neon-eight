@@ -30,26 +30,27 @@ const manageCars = manageCarArray();
 
 for(let i = 0; i < cars.length; i++){
     const createCars = carCreator(cars[i].id, cars[i].name, cars[i].brand, cars[i].manufacturedYear , cars[i].doors , cars[i].price , cars[i].available, cars[i].image);
+    const getArrayProperties = manageCars.returnArray();
     manageCars.pushCarsInArray(createCars);
-    pushCarsOnScreen();
+    pushCarsOnScreen(getArrayProperties[i].getId(), getArrayProperties[i].getName(), getArrayProperties[i].getBrand(), getArrayProperties[i].getManufacturedYear(), getArrayProperties[i].getDoorsNumber(), getArrayProperties[i].getPrice(), getArrayProperties[i].isAvailable(), getArrayProperties[i].getImg());
 }
 
-function pushCarsOnScreen() {
+function pushCarsOnScreen(id, name, brand, manufacturedYear, doors, price, available, img) {
     const html = 
     `
-    <div class="car-content">
+    <div class="car-content" id="${id}">
             <div>
-                <h1>Toyota Corrolla</h1>
-                <img src="toyota-corrolla.png">
+                <h1>${name}</h1>
+                <img src="${img}">
             </div>
             <div class="car-description">
-                <h3>Brand: Toyota</h3>
-                <h3>Manufactured year: 2019</h3>
-                <h3>Doors: 4</h3>
-                <h3>Price: $22000</h3>
+                <h3>Brand: ${brand}</h3>
+                <h3>Manufactured year: ${manufacturedYear}</h3>
+                <h3>Doors: ${doors}</h3>
+                <h3>Price: ${price}</h3>
             </div>
             <div class="available-info">
-                <h3>Available: Yes</h3>
+                <h3>Available: ${available}</h3>
             </div>
             <button>Delete</button>
     </div>
