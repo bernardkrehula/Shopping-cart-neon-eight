@@ -73,3 +73,6 @@ html {
     padding: 10px 15px;
     text-transform: capitalize;
 }
+.sort-a-z {
+    cursor: pointer;
+}
