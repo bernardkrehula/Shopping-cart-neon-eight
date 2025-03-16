@@ -14,9 +14,8 @@ html {
     font-size: 2.6rem;
 }
 .main {
-    padding: 10px;
+    padding: 15px;
     background-color: rgb(235, 235, 235);
-    overflow-y: scroll;
     margin: 0 100px;
 }
 .menu-options {
@@ -33,12 +32,19 @@ html {
 .menu-options select {
     font-size: 2rem;
 }
+.cars {
+    overflow-y: scroll;
+    height: 1000px;
+}
 .car-content {
     display: flex;
     padding: 20px;
     justify-content: space-between;
     align-items: center;
     font-size: 2rem;
+    margin-bottom: 10px;
+    background-color: rgb(211, 211, 211);
+   
 }
 .car-content button {
     padding: 5px 15px;
