@@ -1,7 +1,5 @@
 import { cars } from "./carArray.js";
 
-const carContent = document.querySelector('.car-content');
-const main = document.querySelector('.main');
 const carsOnScreenDiv = document.querySelector('.cars');
 const availabilityBtn = document.querySelector('.availability');
 const sortOptions = document.querySelector('.sortOptions');
@@ -24,19 +22,39 @@ function manageCarArray() {
     const pushCarsInArray = (car) => {
         carsArray.push(car);
     }
+    const availableCars = () => {
+        return carsArray.filter(car => car.isAvailable() != 'no'); 
+    }
+    const notAvailableCars = () => {
+        return carsArray.filter(car => car.isAvailable() != 'yes');
+    }
     const sortArrayFromAtoZ = () => {
         carsArray.sort((a, b) => a.getName().localeCompare(b.getName()));
     }
     const sortArrayFromZtoA = () => {
         carsArray.sort((a, b) => b.getName().localeCompare(a.getName()));
     }
-    const showCardsOnScreen = () => {
+    const sortArrayByLowestPrice = () => {
+        carsArray.sort((a, b) => a.getPrice() - b.getPrice());
+    }
+    const sortArrayByHighestPrice = () => {
+        carsArray.sort((a, b) => b.getPrice() - a.getPrice());
+    }
+    const showCarsOnScreen = () => {
         carsArray.map(car => pushCarsOnScreen(car));
+    }
+    const showAvailableCars = () => {
+        const showCars = availableCars();
+        showCars.map((car) => pushCarsOnScreen(car));
+    }
+    const showNotAvailableCars = () => {
+        const showCars = notAvailableCars();
+        showCars.map((car) => pushCarsOnScreen(car));
     }
 
     const returnArray = () => { return carsArray };
 
-    return { pushCarsInArray, sortArrayFromAtoZ, sortArrayFromZtoA, returnArray, showCardsOnScreen}
+    return { pushCarsInArray, sortArrayFromAtoZ, sortArrayFromZtoA, returnArray, showCarsOnScreen, sortArrayByLowestPrice, sortArrayByHighestPrice, availableCars, notAvailableCars, showAvailableCars, showNotAvailableCars }
 }
 
 const manageCars = manageCarArray();
@@ -80,21 +98,51 @@ function pushCarsOnScreen(car) {
     carsOnScreenDiv.insertAdjacentHTML('beforeend', html);
 }
 
-sortOptions.addEventListener('change', () => {
-    const az = sortOptions.value;
+availabilityBtn.addEventListener('change', () => {
+    const availabilityOption = availabilityBtn.value;
+ 
+    if(availabilityOption == 'all'){
+        carsOnScreenDiv.innerHTML = '';
+        manageCars.showCarsOnScreen();
+    }
+    if(availabilityOption == 'available-yes'){
+        carsOnScreenDiv.innerHTML = '';
+        manageCars.availableCars();
+        manageCars.showAvailableCars();
+        console.log(manageCars.returnArray())
+    }
+    if(availabilityOption == 'available-no'){
+        carsOnScreenDiv.innerHTML = '';
+        manageCars.notAvailableCars();
+        manageCars.showNotAvailableCars();
+    }
+})
 
-    if(az == 'sort-a-z' ){
+sortOptions.addEventListener('change', () => {
+    const sort = sortOptions.value;
+
+    if(sort == 'sort-a-z' ){
         carsOnScreenDiv.innerHTML = '';
         manageCars.sortArrayFromAtoZ();
-        manageCars.showCardsOnScreen();
+        manageCars.showCarsOnScreen();
     }
-    if(az == 'sort-z-a'){
+    if(sort == 'sort-z-a'){
         carsOnScreenDiv.innerHTML = '';
         manageCars.sortArrayFromZtoA();
-        manageCars.showCardsOnScreen();
+        manageCars.showCarsOnScreen();
     }
-    
+    if(sort == 'lowest-price'){
+        carsOnScreenDiv.innerHTML = '';
+        manageCars.sortArrayByLowestPrice();
+        manageCars.showCarsOnScreen();
+    }
+    if(sort == 'highest-price'){
+        carsOnScreenDiv.innerHTML = '';
+        manageCars.sortArrayByHighestPrice();
+        manageCars.showCarsOnScreen();
+    }
 })
+
 carsOnScreenDiv.addEventListener('click', (e) => {
     const deleteBtn = e.target.closest('button');
     const div = e.target.closest('div');
@@ -103,4 +151,3 @@ carsOnScreenDiv.addEventListener('click', (e) => {
         carsOnScreenDiv.removeChild(div);
     }
 })
-console.log(manageCars.returnArray())
