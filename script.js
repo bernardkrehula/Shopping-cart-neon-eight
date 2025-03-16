@@ -3,7 +3,7 @@ import { cars } from "./carArray.js";
 const carContent = document.querySelector('.car-content');
 const main = document.querySelector('.main');
 const carsOnScreenDiv = document.querySelector('.cars');
-
+const availabilityBtn = document.querySelector('.availability');
 
 const carCreator = (id, name, brand, manufacturedYear, doors, price, available, image) => {
     const getId = () => { return id };
@@ -21,12 +21,16 @@ function manageCarArray() {
     const carsArray = [];
 
     const pushCarsInArray = (car) => {
-        carsArray.push(car)
+        carsArray.push(car);
+    }
+    const sortArrayFromAtoZ = () => {
+        
     }
     const returnArray = () => { return carsArray };
 
-    return { pushCarsInArray, returnArray }
+    return { pushCarsInArray, returnArray, sortArrayFromAtoZ }
 }
+
 const manageCars = manageCarArray();
 
 for(let i = 0; i < cars.length; i++){
@@ -68,4 +72,18 @@ function pushCarsOnScreen(id, name, brand, manufacturedYear, doors, price, avail
     `
     carsOnScreenDiv.insertAdjacentHTML('beforeend', html);
 }
+
+availabilityBtn.addEventListener('click', () => {
+    // carsOnScreenDiv.innerHTML = '';
+    manageCars.sortArrayFromAtoZ();
+      
+})
+carsOnScreenDiv.addEventListener('click', (e) => {
+    const deleteBtn = e.target.closest('button');
+    const div = e.target.closest('div');
+    
+    if(deleteBtn){
+        carsOnScreenDiv.removeChild(div);
+    }
+})
 console.log(manageCars.returnArray())
