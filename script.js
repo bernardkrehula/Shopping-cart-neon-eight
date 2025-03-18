@@ -4,7 +4,16 @@ const carsOnScreenDiv = document.querySelector('.cars');
 const availabilityBtn = document.querySelector('.availability');
 const sortOptions = document.querySelector('.sortOptions');
 
-const carCreator = (id, name, brand, manufacturedYear, doors, price, available, image) => {
+const carCreator = (carId, carName, carBrand, carManufacturedYear, carDoors, carPrice, carAvailable, carImage) => {
+    let id = carId;
+    let name = carName;
+    let brand = carBrand;
+    let manufacturedYear = carManufacturedYear;
+    let doors = carDoors;
+    let price = carPrice;
+    let available = carAvailable;
+    let image = carImage;
+    
     const getId = () => { return id };
     const getName = () => { return name };
     const getBrand = () => { return brand };
@@ -98,8 +107,12 @@ function pushCarsOnScreen(car) {
     carsOnScreenDiv.insertAdjacentHTML('beforeend', html);
 }
 
-availabilityBtn.addEventListener('change', () => {
-    const availabilityOption = availabilityBtn.value;
+availabilityBtn.addEventListener('change', (event) => {
+    const availabilityOption = event.target.value;
+    console.log(availabilityOption)
+    const [key, value ] = availabilityOption.split('-');
+    console.log(key)
+    console.log(value)
  
     if(availabilityOption == 'all'){
         carsOnScreenDiv.innerHTML = '';
@@ -109,7 +122,6 @@ availabilityBtn.addEventListener('change', () => {
         carsOnScreenDiv.innerHTML = '';
         manageCars.availableCars();
         manageCars.showAvailableCars();
-        console.log(manageCars.returnArray())
     }
     if(availabilityOption == 'available-no'){
         carsOnScreenDiv.innerHTML = '';
