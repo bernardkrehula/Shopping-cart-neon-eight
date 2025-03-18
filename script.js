@@ -13,7 +13,7 @@ const carCreator = (carId, carName, carBrand, carManufacturedYear, carDoors, car
     let price = carPrice;
     let available = carAvailable;
     let image = carImage;
-    
+
     const getId = () => { return id };
     const getName = () => { return name };
     const getBrand = () => { return brand };
@@ -110,24 +110,28 @@ function pushCarsOnScreen(car) {
 availabilityBtn.addEventListener('change', (event) => {
     const availabilityOption = event.target.value;
     console.log(availabilityOption)
-    const [key, value ] = availabilityOption.split('-');
-    console.log(key)
-    console.log(value)
+    const [key, value] = availabilityOption.split('-');
+    const stateIsAvailable = manageCars.availableCars();
+    const stateNotAvailable =  manageCars.notAvailableCars();
  
     if(availabilityOption == 'all'){
         carsOnScreenDiv.innerHTML = '';
         manageCars.showCarsOnScreen();
     }
-    if(availabilityOption == 'available-yes'){
-        carsOnScreenDiv.innerHTML = '';
-        manageCars.availableCars();
-        manageCars.showAvailableCars();
-    }
-    if(availabilityOption == 'available-no'){
-        carsOnScreenDiv.innerHTML = '';
-        manageCars.notAvailableCars();
-        manageCars.showNotAvailableCars();
-    }
+    stateIsAvailable.map((car) => {
+        if(value == car.isAvailable()){
+            carsOnScreenDiv.innerHTML = '';
+            manageCars.availableCars();
+            manageCars.showAvailableCars();
+        }
+    })
+    stateNotAvailable.map((car) => {
+        if(value == car.isAvailable()){
+            carsOnScreenDiv.innerHTML = '';
+            manageCars.notAvailableCars();
+            manageCars.showNotAvailableCars();
+        }
+    })
 })
 
 sortOptions.addEventListener('change', () => {
