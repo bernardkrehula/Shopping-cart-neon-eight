@@ -26,16 +26,21 @@ const carCreator = (carId, carName, carBrand, carManufacturedYear, carDoors, car
 }
 
 function manageCarArray() {
-    const carsArray = [];
+    let carsArray = [];
 
     const pushCarsInArray = (car) => {
         carsArray.push(car);
     }
-    const availableCars = () => {
-        return carsArray.filter(car => car.isAvailable() != 'no'); 
-    }
-    const notAvailableCars = () => {
-        return carsArray.filter(car => car.isAvailable() != 'yes');
+    const filterCars = (key, value) => {
+        carsArray = cars.filter(car => car[key] == value);
+        showCars()
+        console.log(carsArray)
+        console.log(key, value)
+        //Dodaj sljedece filtere
+        //Brand honda
+        //Brand toyta
+        //2 doors
+        //4 doors
     }
     const sortArrayFromAtoZ = () => {
         carsArray.sort((a, b) => a.getName().localeCompare(b.getName()));
@@ -63,17 +68,20 @@ function manageCarArray() {
 
     const returnArray = () => { return carsArray };
 
-    return { pushCarsInArray, sortArrayFromAtoZ, sortArrayFromZtoA, returnArray, showCarsOnScreen, sortArrayByLowestPrice, sortArrayByHighestPrice, availableCars, notAvailableCars, showAvailableCars, showNotAvailableCars }
+    return { pushCarsInArray, sortArrayFromAtoZ, sortArrayFromZtoA, returnArray, showCarsOnScreen, sortArrayByLowestPrice, sortArrayByHighestPrice, filterCars, showAvailableCars, showNotAvailableCars }
 }
 
 const manageCars = manageCarArray();
-
-for(let i = 0; i < cars.length; i++){
-    const createCars = carCreator(cars[i].id, cars[i].name, cars[i].brand, cars[i].manufacturedYear , cars[i].doors , cars[i].price , cars[i].available, cars[i].image);
-
-    manageCars.pushCarsInArray(createCars);
-    pushCarsOnScreen(createCars);
+function showCars() {
+    for(let i = 0; i < cars.length; i++){
+        const createCars = carCreator(cars[i].id, cars[i].name, cars[i].brand, cars[i].manufacturedYear , cars[i].doors , cars[i].price , cars[i].available, cars[i].image);
+    
+        manageCars.pushCarsInArray(createCars);
+        pushCarsOnScreen(createCars);
+    }
 }
+showCars();
+
 function backgroundColor(available) {
     if(available == 'yes'){
         return 'rgb(128, 255, 128)';
@@ -109,29 +117,10 @@ function pushCarsOnScreen(car) {
 
 availabilityBtn.addEventListener('change', (event) => {
     const availabilityOption = event.target.value;
-    console.log(availabilityOption)
     const [key, value] = availabilityOption.split('-');
-    const stateIsAvailable = manageCars.availableCars();
-    const stateNotAvailable =  manageCars.notAvailableCars();
- 
-    if(availabilityOption == 'all'){
-        carsOnScreenDiv.innerHTML = '';
-        manageCars.showCarsOnScreen();
-    }
-    stateIsAvailable.map((car) => {
-        if(value == car.isAvailable()){
-            carsOnScreenDiv.innerHTML = '';
-            manageCars.availableCars();
-            manageCars.showAvailableCars();
-        }
-    })
-    stateNotAvailable.map((car) => {
-        if(value == car.isAvailable()){
-            carsOnScreenDiv.innerHTML = '';
-            manageCars.notAvailableCars();
-            manageCars.showNotAvailableCars();
-        }
-    })
+    manageCars.filterCars(key, value);
+    pushCarsOnScreen()
+   
 })
 
 sortOptions.addEventListener('change', () => {
