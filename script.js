@@ -26,21 +26,15 @@ const carCreator = (carId, carName, carBrand, carManufacturedYear, carDoors, car
 }
 
 function manageCarArray() {
-    let carsArray = [];
+    const carsArray = [];
 
     const pushCarsInArray = (car) => {
         carsArray.push(car);
     }
     const filterCars = (key, value) => {
-        carsArray = cars.filter(car => car[key] == value);
-        showCars()
-        console.log(carsArray)
-        console.log(key, value)
-        //Dodaj sljedece filtere
-        //Brand honda
-        //Brand toyta
-        //2 doors
-        //4 doors
+        carsArray.length = 0;
+        let filter = cars.filter(car => car[key] == value);
+        return filter;
     }
     const sortArrayFromAtoZ = () => {
         carsArray.sort((a, b) => a.getName().localeCompare(b.getName()));
@@ -57,30 +51,22 @@ function manageCarArray() {
     const showCarsOnScreen = () => {
         carsArray.map(car => pushCarsOnScreen(car));
     }
-    const showAvailableCars = () => {
-        const showCars = availableCars();
-        showCars.map((car) => pushCarsOnScreen(car));
-    }
-    const showNotAvailableCars = () => {
-        const showCars = notAvailableCars();
-        showCars.map((car) => pushCarsOnScreen(car));
-    }
 
     const returnArray = () => { return carsArray };
 
-    return { pushCarsInArray, sortArrayFromAtoZ, sortArrayFromZtoA, returnArray, showCarsOnScreen, sortArrayByLowestPrice, sortArrayByHighestPrice, filterCars, showAvailableCars, showNotAvailableCars }
+    return { pushCarsInArray, sortArrayFromAtoZ, sortArrayFromZtoA, returnArray, showCarsOnScreen, sortArrayByLowestPrice, sortArrayByHighestPrice, filterCars }
 }
 
 const manageCars = manageCarArray();
-function showCars() {
-    for(let i = 0; i < cars.length; i++){
-        const createCars = carCreator(cars[i].id, cars[i].name, cars[i].brand, cars[i].manufacturedYear , cars[i].doors , cars[i].price , cars[i].available, cars[i].image);
-    
-        manageCars.pushCarsInArray(createCars);
-        pushCarsOnScreen(createCars);
-    }
+
+for(let i = 0; i < cars.length; i++){
+    const createCars = carCreator(cars[i].id, cars[i].name, cars[i].brand, cars[i].manufacturedYear , cars[i].doors , cars[i].price , cars[i].available, cars[i].image);
+
+    manageCars.pushCarsInArray(createCars);
+    pushCarsOnScreen(createCars);
 }
-showCars();
+
+
 
 function backgroundColor(available) {
     if(available == 'yes'){
@@ -118,9 +104,9 @@ function pushCarsOnScreen(car) {
 availabilityBtn.addEventListener('change', (event) => {
     const availabilityOption = event.target.value;
     const [key, value] = availabilityOption.split('-');
-    manageCars.filterCars(key, value);
-    pushCarsOnScreen()
-   
+    const filteredCars = manageCars.filterCars(key, value);
+    carsOnScreenDiv.innerHTML = '';
+    filteredCars.forEach(car => pushCarsOnScreen(carCreator(car.id, car.name, car.brand, car.manufacturedYear , car.doors , car.price , car.available, car.image)));
 })
 
 sortOptions.addEventListener('change', () => {
